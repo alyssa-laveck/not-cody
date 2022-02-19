@@ -3,9 +3,16 @@ body {
 }
 
 .not-cody-class {
-  font-size: 275px;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
-  color: blue;
+  font-size: 3rem;
+  /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-tile {
@@ -13,9 +20,6 @@ body {
   height: 58px;
   border: 2px solid #ffffff;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 3rem;
   font-weight: bold;
   margin: 2px;
@@ -34,14 +38,4 @@ body {
 .game-tile.unused {
   background-color: #4d4d4d;
   color: #090909;
-}
-
-.tile-row {
-  display: flex;
-}
-
-.tile-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
 }

@@ -8,7 +8,7 @@ type TileProps = {
 
 const GameTile: FC<TileProps> = ({letter, status}) => {
     return (
-        <div className={`game-tile ${status}`}>
+        <div className={`flex-center game-tile ${status}`}>
             {letter}
         </div>
     );
