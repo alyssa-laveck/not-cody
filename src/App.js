@@ -5,7 +5,13 @@ function App() {
   return (
     <>
       <div className="not-cody-class">Not Cody</div>
-      <GameTile />
+      <div className="tile-container">
+        <div className="tile-row">
+          <GameTile letter="W" status="good" />
+          <GameTile letter="A" status="used" />
+          <GameTile letter="S" status="unused" />
+        </div>
+      </div>
     </>
   );
 }

@@ -1,8 +1,17 @@
 import { FC } from 'react';
+import { isPropertySignature } from 'typescript';
 
-const GameTile: FC = () => {
+type TileProps = {
+    letter: string,
+    status?: string
+};
+
+const GameTile: FC<TileProps> = ({letter, status}) => {
     return (
-        <div className="game-tile used-letter"></div>
+        <div className={`game-tile ${status}`}>
+            {letter}
+        </div>
     );
 };
+
 export default GameTile;
