@@ -1,0 +1,41 @@
+body {
+  background-color: #090909
+}
+
+.not-cody-class {
+  font-size: 3rem;
+  /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-tile {
+  width: 58px;
+  height: 58px;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 2px;
+}
+
+.game-tile.good {
+  background-color: #009933;
+  color: #ffffff;
+}
+
+.game-tile.used {
+  background-color: #ff9933;
+  color: #090909;
+}
+
+.game-tile.unused {
+  background-color: #4d4d4d;
+  color: #090909;
+}
