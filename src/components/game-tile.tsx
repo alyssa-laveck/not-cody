@@ -1,8 +1,16 @@
 import { FC } from 'react';
 
-const GameTile: FC = () => {
+type TileProps = {
+    letter: string,
+    status?: string
+};
+
+const GameTile: FC<TileProps> = ({letter, status}) => {
     return (
-        <div className="game-tile"></div>
+        <div className={`flex-center game-tile ${status}`}>
+            {letter}
+        </div>
     );
 };
+
 export default GameTile;
