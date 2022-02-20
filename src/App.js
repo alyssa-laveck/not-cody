@@ -1,3 +1,4 @@
+import GameRow from './components/game-row.tsx';
 import GameTile from './components/game-tile.tsx';
 import './styles/App.css';
 
@@ -7,6 +8,8 @@ function App() {
       <div className="not-cody-class flex-center">
         Not Cody
       </div>
+
+      <GameRow />
 
       <div className="tile-container flex-center">
         <div className="flex-center">
