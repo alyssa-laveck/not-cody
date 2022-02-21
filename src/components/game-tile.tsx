@@ -1,14 +1,21 @@
 import { FC } from 'react';
 
+export enum TileStatus {
+    Good = 'good',
+    Used = 'used',
+    None = 'none',
+    Blank = 'blank'
+}
+
 type TileProps = {
     letter?: string,
-    status?: string
+    status: TileStatus
 };
 
-const GameTile: FC<TileProps> = ({letter, status}) => {
+const GameTile: FC<TileProps> = ({letter, status = TileStatus.Blank}) => {
     return (
         <div className={`flex-center game-tile ${status}`}>
-            {letter.toUpperCase()}
+            {letter && letter.toUpperCase()}
         </div>
     );
 };

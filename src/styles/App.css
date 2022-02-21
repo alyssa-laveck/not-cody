@@ -3,11 +3,11 @@ body {
   color: #ffffff;
 }
 
-.not-cody-class {
+.game-title {
   font-size: 3rem;
-  /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
   color: #ffffff;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .flex-center {
@@ -25,7 +25,8 @@ body {
   height: 3rem;
   font-size: 2.5rem;
   font-weight: bold;
-  margin: 2px;
+  margin: 3px;
+  border: 2px solid transparent;
 }
 
 .game-tile.good {
@@ -36,6 +37,10 @@ body {
   background-color: #ff9933;
 }
 
-.game-tile.unused {
+.game-tile.none {
   background-color: #4d4d4d;
+}
+
+.game-tile.blank {
+  border: 2px #ffffff solid;
 }
