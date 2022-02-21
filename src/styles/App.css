@@ -1,5 +1,6 @@
 body {
-  background-color: #090909
+  background-color: #090909;
+  color: #ffffff;
 }
 
 .not-cody-class {
@@ -16,26 +17,21 @@ body {
 }
 
 .game-tile {
-  width: 58px;
-  height: 58px;
-  border: 2px solid #ffffff;
-  border-radius: 5px;
-  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin: 2px;
 }
 
 .game-tile.good {
   background-color: #009933;
-  color: #ffffff;
 }
 
 .game-tile.used {
   background-color: #ff9933;
-  color: #090909;
 }
 
 .game-tile.unused {
   background-color: #4d4d4d;
-  color: #090909;
 }

@@ -6,18 +6,10 @@ function App() {
   return (
     <>
       <div className="not-cody-class flex-center">
-        Not Cody
+        WURDLE 3.0!
       </div>
 
       <GameRow />
-
-      <div className="tile-container flex-center">
-        <div className="flex-center">
-          <GameTile letter="W" status="good" />
-          <GameTile letter="A" status="used" />
-          <GameTile letter="S" status="unused" />
-        </div>
-      </div>
     </>
   );
 }
