@@ -7,7 +7,7 @@ const GameRow: FC = () => {
     let gameTiles: GameTile = [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        gameTiles.push(<GameTile />);
+        gameTiles.push(<GameTile key={i}/>);
     }
 
     return (
