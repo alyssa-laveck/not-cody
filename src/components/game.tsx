@@ -15,8 +15,7 @@ const Game: FC = () => {
             // console.log(key);
             if (key === "Backspace") {
                 setInput(input.slice(0, input.length - 1))
-            }
-            else if (input.length < WORD_LENGTH) {
+            } else if (input.length < WORD_LENGTH) {
                 setInput(input + key);
             }
         };
@@ -38,12 +37,10 @@ const Game: FC = () => {
     console.log(input);
     
     return (
-    <div className="flex-center column">
-        { renderRows(ROW_COUNT) }
-    </div>
+        <div className="flex-center column">
+            { renderRows(ROW_COUNT) }
+        </div>
     );
-
-
 };
 
 export default Game;
