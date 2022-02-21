@@ -16,6 +16,10 @@ body {
   justify-content: center;
 }
 
+.column {
+  flex-direction: column;
+}
+
 .game-tile {
   width: 3rem;
   height: 3rem;
