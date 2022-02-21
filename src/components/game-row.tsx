@@ -7,14 +7,10 @@ const GameRow: FC = () => {
     let gameTiles: GameTile = [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        gameTiles.push(<GameTile key={i}/>);
+        gameTiles.push(<GameTile key={i} />);
     }
 
-    return (
-        <div className="flex-center">
-            { gameTiles }
-        </div>
-    )
+    return <div className="flex-center">{gameTiles}</div>;
 };
 
 export default GameRow;
