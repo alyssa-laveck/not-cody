@@ -4,19 +4,17 @@ export enum TileStatus {
     Good = 'good',
     Used = 'used',
     None = 'none',
-    Blank = 'blank'
+    Blank = 'blank',
 }
 
 type TileProps = {
-    letter?: string,
-    status: TileStatus
+    letter?: string;
+    status: TileStatus;
 };
 
-const GameTile: FC<TileProps> = ({letter, status = TileStatus.Blank}) => {
+const GameTile: FC<TileProps> = ({ letter, status = TileStatus.Blank }) => {
     return (
-        <div className={`flex-center game-tile ${status}`}>
-            {letter && letter.toUpperCase()}
-        </div>
+        <div className={`flex-center game-tile ${status}`}>{letter && letter.toUpperCase()}</div>
     );
 };
 
