@@ -11,16 +11,19 @@ const Game: FC = () => {
     const WORD_LENGTH = 5;
 
     useEffect(() => {
-        const onKeyDown = ({ key }) => {
+        const onKeyDown = ({ key, keyCode }) => {
             // console.log(key);
-            if (key === 'Backspace') {
+            if (key === 'Backspace' && input.length > 0) {
                 setInput(input.slice(0, input.length - 1));
             } else if (input.length < WORD_LENGTH) {
-                setInput(input + key);
+                if (keyCode >= 65 && keyCode <= 90) {
+                    setInput(input + key.toUpperCase());
+                }
             }
         };
 
         window.addEventListener('keydown', onKeyDown);
+        
         return () => {
             window.removeEventListener('keydown', onKeyDown);
         };
@@ -28,9 +31,11 @@ const Game: FC = () => {
 
     const renderRows = (count) => {
         let rows = [];
+
         for (let i = 0; i < count; i++) {
             rows.push(<GameRow key={i} />);
         }
+
         return rows;
     };
 
