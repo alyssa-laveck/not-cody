@@ -7,7 +7,7 @@ const GameRow: FC = () => {
     let gameTiles: GameTile = [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        gameTiles.push(<GameTile key={i} />);
+        gameTiles.push(<GameTile key={i} letter="" status="good" />);
     }
 
     return <div className="flex-center">{gameTiles}</div>;
