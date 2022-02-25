@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import GameRow from './game-row.tsx';
 
-// type GameProps = {
-// };
+const ROW_COUNT = 6;
+const WORD_LENGTH = 5;
 
 const isValidWord = (word) => {
     if (word.length < 5) {
@@ -12,7 +12,7 @@ const isValidWord = (word) => {
     // Need something to check if valid english word and add check here
 
     return true;
-}
+};
 
 const Game: FC = () => {
     const [input, setInput] = useState('');
@@ -45,6 +45,38 @@ const Game: FC = () => {
         };
     }, [input, setInput, WORD_LENGTH, currentRow]);
 
+    // const [input, setInput] = useState<string[]>([]);
+    // const keyDown = useCallback(({ key, keyCode }) => {
+    //     const backspaceCb = (prev: string[]): string[] => {
+    //         if (prev.length > 0) {
+    //             return prev.slice(0, prev.length - 1);
+    //         }
+
+    //         return prev;
+    //     };
+    //     const appendCb = (prev: string[]): string[] => {
+    //         if (prev.length < WORD_LENGTH) {
+    //             return [...prev, key.toUpperCase()];
+    //         }
+
+    //         return prev;
+    //     };
+
+    //     if (key === 'Backspace') {
+    //         setInput(backspaceCb);
+    //     } else if (keyCode >= 65 && keyCode <= 90) {
+    //         setInput(appendCb);
+    //     }
+    // }, []);
+
+    // useEffect(() => {
+    //     window.addEventListener('keydown', keyDown);
+
+    //     return () => {
+    //         window.removeEventListener('keydown', keyDown);
+    //     };
+    // }, [keyDown]);
+
     const renderRows = (count, currentRow) => {
         let rows = [];
 
@@ -57,11 +89,7 @@ const Game: FC = () => {
 
     console.log(input);
 
-    return (
-        <div className="flex-center column">
-            {renderRows(ROW_COUNT, currentRow)}
-        </div>
-    );
+    return <div className="flex-center column">{renderRows(ROW_COUNT, currentRow)}</div>;
 };
 
 export default Game;

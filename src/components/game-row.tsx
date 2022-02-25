@@ -3,17 +3,17 @@ import GameTile from './game-tile.tsx';
 
 const ROW_LENGTH = 5;
 
-type RowProps = {
+type GameRowProps = {
     isInputRow: boolean;
-    input: string;
-}
+    input: string[];
+};
 
-const GameRow: FC<RowProps> = ({isInputRow, input}) => {
+const GameRow: FC<GameRowProps> = ({ isInputRow, input }) => {
     let gameTiles: GameTile = [];
-    let inputWord = isInputRow ? input : '';
+    let inputWord = isInputRow ? input : [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        gameTiles.push(<GameTile key={i} letter={inputWord.charAt(i)} status="good" />);
+        gameTiles.push(<GameTile key={i} letter={inputWord[i]} status="good" />);
     }
 
     return <div className="flex-center">{gameTiles}</div>;
