@@ -3,11 +3,16 @@ import GameTile from './game-tile.tsx';
 
 const ROW_LENGTH = 5;
 
-const GameRow: FC = () => {
+interface GameRowProps {
+    letters: string[];
+}
+
+const GameRow: FC<GameRowProps> = ({ letters }) => {
     let gameTiles: GameTile = [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        gameTiles.push(<GameTile key={i} />);
+        console.log(letters);
+        gameTiles.push(<GameTile key={i} letter={letters[i]} />);
     }
 
     return <div className="flex-center">{gameTiles}</div>;
