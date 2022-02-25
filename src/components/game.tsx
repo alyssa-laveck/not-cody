@@ -1,8 +1,6 @@
 import { FC, useEffect, useState } from 'react';
+import { ROW_COUNT, WORD_LENGTH } from '../constants.ts';
 import GameRow from './game-row.tsx';
-
-const ROW_COUNT = 6;
-const WORD_LENGTH = 5;
 
 const isValidWord = (word: string[]): boolean => {
     if (word.length < 5) {

@@ -1,7 +1,6 @@
 import { FC } from 'react';
+import { WORD_LENGTH } from '../constants.ts';
 import GameTile from './game-tile.tsx';
-
-const ROW_LENGTH = 5;
 
 type GameRowProps = {
     input: string[];
@@ -10,7 +9,7 @@ type GameRowProps = {
 const GameRow: FC<GameRowProps> = ({ input }) => {
     let gameTiles: GameTile = [];
 
-    for (let i = 0; i < ROW_LENGTH; i++) {
+    for (let i = 0; i < WORD_LENGTH; i++) {
         gameTiles.push(<GameTile key={i} letter={input[i]} status="good" />);
     }
 
