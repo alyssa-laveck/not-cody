@@ -11,7 +11,6 @@ const GameRow: FC<GameRowProps> = ({ letters }) => {
     let gameTiles: GameTile = [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        console.log(letters);
         gameTiles.push(<GameTile key={i} letter={letters[i]} />);
     }
 
