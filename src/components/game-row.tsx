@@ -10,10 +10,10 @@ type GameRowProps = {
 
 const GameRow: FC<GameRowProps> = ({ isInputRow, input }) => {
     let gameTiles: GameTile = [];
-    let inputWord = isInputRow ? input : [];
+    // let inputWord = isInputRow ? input : [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
-        gameTiles.push(<GameTile key={i} letter={inputWord[i]} status="good" />);
+        gameTiles.push(<GameTile key={i} letter={input[i]} status="good" />);
     }
 
     return <div className="flex-center">{gameTiles}</div>;
