@@ -14,7 +14,9 @@ type TileProps = {
 
 const GameTile: FC<TileProps> = ({ letter, status = TileStatus.Blank }) => {
     return (
-        <div className={`flex-center game-tile ${status}`}>{letter && letter.toUpperCase()}</div>
+        <div className={`flex-center game-tile ${status}`}>
+            {letter && letter.toUpperCase()}
+        </div>
     );
 };
 
