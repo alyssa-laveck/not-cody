@@ -47,11 +47,18 @@ const Game: FC = () => {
         let rows = [];
 
         for (let i = 0; i < count; i++) {
+            let robertsInput = [];
+
+            if (i < guesses.length) {
+                robertsInput = guesses[i];
+            } else if (i === currentRow) {
+                robertsInput = input;
+            }
+
             rows.push(
                 <GameRow
                     key={i}
-                    isInputRow={i === currentRow}
-                    input={guesses[i]?.length === WORD_LENGTH ? guesses[i] : input}
+                    input={robertsInput}
                 />,
             );
         }

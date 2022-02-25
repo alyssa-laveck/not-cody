@@ -4,13 +4,11 @@ import GameTile from './game-tile.tsx';
 const ROW_LENGTH = 5;
 
 type GameRowProps = {
-    isInputRow: boolean;
     input: string[];
 };
 
-const GameRow: FC<GameRowProps> = ({ isInputRow, input }) => {
+const GameRow: FC<GameRowProps> = ({ input }) => {
     let gameTiles: GameTile = [];
-    // let inputWord = isInputRow ? input : [];
 
     for (let i = 0; i < ROW_LENGTH; i++) {
         gameTiles.push(<GameTile key={i} letter={input[i]} status="good" />);
