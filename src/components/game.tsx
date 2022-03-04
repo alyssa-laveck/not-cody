@@ -43,15 +43,15 @@ const Game: FC = () => {
         let rows = [];
 
         for (let i = 0; i < count; i++) {
-            let robertsInput = [];
+            let rowInput = [];
 
             if (i < guesses.length) {
-                robertsInput = guesses[i];
+                rowInput = guesses[i];
             } else if (i === currentRow) {
-                robertsInput = input;
+                rowInput = input;
             }
 
-            rows.push(<GameRow key={i} input={robertsInput} />);
+            rows.push(<GameRow key={i} input={rowInput} />);
         }
 
         return rows;
