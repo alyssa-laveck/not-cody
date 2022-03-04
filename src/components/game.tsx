@@ -1,8 +1,6 @@
 import { FC, useEffect, useState } from 'react';
+import { ROW_COUNT, WORD_LENGTH } from '../constants.ts';
 import GameRow from './game-row.tsx';
-
-const ROW_COUNT = 6;
-const WORD_LENGTH = 5;
 
 const isValidWord = (word: string[]): boolean => {
     if (word.length < 5) {
@@ -15,6 +13,7 @@ const isValidWord = (word: string[]): boolean => {
 };
 
 const Game: FC = () => {
+    const [guesses, setGuesses] = useState<string[][]>([]);
     const [input, setInput] = useState<string[]>([]);
     const [currentRow, setCurrentRow] = useState(0);
 
@@ -27,6 +26,8 @@ const Game: FC = () => {
             } else if (key === 'Enter' && isValidWord(input)) {
                 if (currentRow < ROW_COUNT - 1) {
                     setCurrentRow(currentRow + 1);
+                    setGuesses([...guesses, [...input]]);
+                    setInput([]);
                 }
             }
         };
@@ -36,13 +37,21 @@ const Game: FC = () => {
         return () => {
             window.removeEventListener('keydown', keyDown);
         };
-    }, [input, currentRow]);
+    }, [input, currentRow, guesses]);
 
     const renderRows = (count, currentRow) => {
         let rows = [];
 
         for (let i = 0; i < count; i++) {
-            rows.push(<GameRow key={i} isInputRow={i === currentRow} input={input} />);
+            let rowInput = [];
+
+            if (i < guesses.length) {
+                rowInput = guesses[i];
+            } else if (i === currentRow) {
+                rowInput = input;
+            }
+
+            rows.push(<GameRow key={i} input={rowInput} />);
         }
 
         return rows;
