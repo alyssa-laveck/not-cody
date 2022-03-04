@@ -30,8 +30,6 @@ const Game: FC = () => {
                     setInput([]);
                 }
             }
-
-            console.log(guesses);
         };
 
         window.addEventListener('keydown', keyDown);
@@ -53,12 +51,7 @@ const Game: FC = () => {
                 robertsInput = input;
             }
 
-            rows.push(
-                <GameRow
-                    key={i}
-                    input={robertsInput}
-                />,
-            );
+            rows.push(<GameRow key={i} input={robertsInput} />);
         }
 
         return rows;
