@@ -1,11 +1,5 @@
 import { FC } from 'react';
-
-export enum TileStatus {
-    Good = 'good',
-    Used = 'used',
-    None = 'none',
-    Blank = 'blank',
-}
+import { TileStatus } from '../constants.ts';
 
 type TileProps = {
     letter?: string;

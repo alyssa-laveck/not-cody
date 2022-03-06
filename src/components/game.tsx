@@ -1,16 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { ROW_COUNT, WORD_LENGTH } from '../constants.ts';
 import GameRow from './game-row.tsx';
-
-const isValidWord = (word: string[]): boolean => {
-    if (word.length < 5) {
-        return false;
-    }
-
-    // Need something to check if valid english word and add check here
-
-    return true;
-};
+import { isValidInput, getWordFeedback } from '../scripts/wordChecker.tsx';
 
 const Game: FC = () => {
     const [guesses, setGuesses] = useState<string[][]>([]);
@@ -23,9 +14,10 @@ const Game: FC = () => {
                 setInput(input.slice(0, input.length - 1));
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
                 setInput(input + key.toUpperCase());
-            } else if (key === 'Enter' && isValidWord(input)) {
+            } else if (key === 'Enter' && isValidInput(input)) {
                 if (currentRow < ROW_COUNT - 1) {
                     setCurrentRow(currentRow + 1);
+                    console.log(getWordFeedback(input));
                     setGuesses([...guesses, [...input]]);
                     setInput([]);
                 }
