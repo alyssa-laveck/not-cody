@@ -10,13 +10,13 @@ const WORD_FEEDBACK = {
     wordFeedback: [],
 };
 
-function isWordLengthValid(word: string[], targetWordLength: number = WORD_LENGTH): number {
-    return Number(word.length === targetWordLength);
+function isWordLengthValid(word: string[], targetWordLength: number = WORD_LENGTH): boolean {
+    return word.length === targetWordLength;
 }
 
-function isRealWord(word: string[]): number {
+function isRealWord(word: string[]): boolean {
     // Not going to bother with API right now, just going to return true
-    return 1;
+    return true;
 }
 
 function getLetterFeedbackArray(word: string[], winningWord: string[] = WINNING_WORD): Array<string> {
@@ -39,18 +39,23 @@ function getWinningWord(): string[] {
     return WINNING_WORD;
 }
 
-export function isValidInput(word: string[]): number {
-    return isWordLengthValid(word);
+export function isValidInput(word: string[]): boolean {    
+    if (isWordLengthValid(word) === false) {
+        return false;
+    }
+
+    return true;
 };
 
-export function isWinningWord(word: string[]): number {
-    return Number(word === getWinningWord());
+export function isWinningWord(word: string[]): boolean {
+    return word === getWinningWord();
 };
 
 export function getWordFeedback(word: string[], targetWordLength: number = WORD_LENGTH): object {
-    WORD_FEEDBACK.isCorrectLength = isWordLengthValid(word, targetWordLength);
-    WORD_FEEDBACK.isRealWord = isRealWord(word);
-    WORD_FEEDBACK.isWinningWord = isWinningWord(word);
+    // Converting the T/F to 1 and 0 so as not to get confused with boolean api return
+    WORD_FEEDBACK.isCorrectLength = isWordLengthValid(word, targetWordLength) ? 1 : 0;
+    WORD_FEEDBACK.isRealWord = isRealWord(word) ? 1 : 0;
+    WORD_FEEDBACK.isWinningWord = isWinningWord(word) ? 1 : 0;
     WORD_FEEDBACK.wordFeedback = getLetterFeedbackArray(word);
 
     return WORD_FEEDBACK;
