@@ -1,4 +1,4 @@
-import Game from './components/game.tsx';
+import Game from './components/game';
 import './styles/App.css';
 
 function App() {

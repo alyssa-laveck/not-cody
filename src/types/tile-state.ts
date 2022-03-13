@@ -1,4 +1,4 @@
-import { TileStatus } from "../components/game-tile.tsx"
+import { TileStatus } from "../components/game-tile"
 
 export interface TileState {
     letter: string,

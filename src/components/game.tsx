@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-import { ROW_COUNT, WORD_LENGTH } from '../constants.ts';
-import { TileStatus } from "../components/game-tile.tsx";
+import { ROW_COUNT, WORD_LENGTH } from '../constants';
+import { TileStatus } from "../components/game-tile";
 import { TileState } from '../types/tile-state';
-import GameRow from './game-row.tsx';
+import GameRow from './game-row';
 
 const isValidWord = (word: string[]): boolean => {
     if (word.length < 5) {
@@ -17,10 +17,10 @@ const isValidWord = (word: string[]): boolean => {
 const Game: FC = () => {
     const [guesses, setGuesses] = useState<string[][]>([]);
     const [input, setInput] = useState<string[]>([]);
-    const [currentRow, setCurrentRow] = useState(0);
+    const [currentRow, setCurrentRow] = useState<number>(0);
 
     useEffect(() => {
-        const keyDown = ({ key, keyCode }) => {
+        const keyDown = ({ key, keyCode }: any) => {
             if (key === 'Backspace' && input.length > 0) {
                 setInput(input.slice(0, input.length - 1));
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
@@ -41,11 +41,11 @@ const Game: FC = () => {
         };
     }, [input, currentRow, guesses]);
 
-    const renderRows = (count, currentRow) => {
+    const renderRows = (currentRow: number) => {
         let rows = [];
 
-        for (let i = 0; i < count; i++) {
-            let rowInput = [];
+        for (let i = 0; i < ROW_COUNT; i++) {
+            let rowInput: string[] = [];
 
             if (i < guesses.length) {
                 rowInput = guesses[i];
@@ -57,7 +57,7 @@ const Game: FC = () => {
                 return {
                     letter,
                     status: TileStatus.Blank
-                } as TileState 
+                } as TileState
             });
 
             rows.push(<GameRow key={i} row={tempRowInput} />);
@@ -66,7 +66,7 @@ const Game: FC = () => {
         return rows;
     };
 
-    return <div className="flex-center column">{renderRows(ROW_COUNT, currentRow)}</div>;
+    return <div className="flex-center column">{renderRows(currentRow)}</div>;
 };
 
 export default Game;

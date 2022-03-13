@@ -1,15 +1,14 @@
 import { FC } from 'react';
-import { WORD_LENGTH } from '../constants.ts';
-import { TileStatus } from './game-tile.tsx';
-import { TileState } from '../types/tile-state.ts';
-import GameTile from './game-tile.tsx';
+import { WORD_LENGTH } from '../constants';
+import GameTile, { TileStatus } from './game-tile';
+import { TileState } from '../types/tile-state';
 
 type GameRowProps = {
     row: TileState[];
 };
 
 const GameRow: FC<GameRowProps> = ({ row }) => {
-    let gameTiles: GameTile = [];
+    let gameTiles: React.ReactElement[] = [];
 
     for (let i = 0; i < row.length; i++) {
         gameTiles.push(<GameTile key={i} letter={row[i].letter} status={row[i].status} />);
