@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { ROW_COUNT, WORD_LENGTH } from '../constants.ts';
+import { TileStatus } from "../components/game-tile.tsx";
+import { TileState } from '../types/tile-state';
 import GameRow from './game-row.tsx';
 
 const isValidWord = (word: string[]): boolean => {
@@ -22,7 +24,7 @@ const Game: FC = () => {
             if (key === 'Backspace' && input.length > 0) {
                 setInput(input.slice(0, input.length - 1));
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
-                setInput(input + key.toUpperCase());
+                setInput([...input, key.toUpperCase()]);
             } else if (key === 'Enter' && isValidWord(input)) {
                 if (currentRow < ROW_COUNT - 1) {
                     setCurrentRow(currentRow + 1);
@@ -51,7 +53,14 @@ const Game: FC = () => {
                 rowInput = input;
             }
 
-            rows.push(<GameRow key={i} input={rowInput} />);
+            const tempRowInput = rowInput.map(letter => {
+                return {
+                    letter,
+                    status: TileStatus.Blank
+                } as TileState 
+            });
+
+            rows.push(<GameRow key={i} row={tempRowInput} />);
         }
 
         return rows;
