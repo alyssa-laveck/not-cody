@@ -50,15 +50,17 @@ const Game: FC = () => {
             if (i < guesses.length) {
                 rowInput = guesses[i];
             } else if (i === currentRow) {
-                rowInput = input.map(letter => {
-                    return {
-                        letter,
-                        status: TileStatus.Blank
-                    } as TileState 
-                });
+                rowInput = input;
             }
 
-            rows.push(<GameRow key={i} row={rowInput} />);
+            const tempRowInput = rowInput.map(letter => {
+                return {
+                    letter,
+                    status: TileStatus.Blank
+                } as TileState 
+            });
+
+            rows.push(<GameRow key={i} row={tempRowInput} />);
         }
 
         return rows;
