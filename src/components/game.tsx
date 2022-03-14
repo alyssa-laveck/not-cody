@@ -4,6 +4,10 @@ import { TileStatus } from "../components/game-tile";
 import { TileState } from '../types/tile-state';
 import GameRow from './game-row';
 
+
+const CORRECT_WORD = 'CRANE';
+const CORRECT_LETTERS = CORRECT_WORD.split('');
+
 const isValidWord = (word: string[]): boolean => {
     if (word.length < 5) {
         return false;
@@ -15,7 +19,7 @@ const isValidWord = (word: string[]): boolean => {
 };
 
 const Game: FC = () => {
-    const [guesses, setGuesses] = useState<string[][]>([]);
+    const [guesses, setGuesses] = useState<TileState[][]>([]);
     const [input, setInput] = useState<string[]>([]);
     const [currentRow, setCurrentRow] = useState<number>(0);
 
@@ -28,7 +32,7 @@ const Game: FC = () => {
             } else if (key === 'Enter' && isValidWord(input)) {
                 if (currentRow < ROW_COUNT - 1) {
                     setCurrentRow(currentRow + 1);
-                    setGuesses([...guesses, [...input]]);
+                    setGuesses([...guesses, guessWord(input)]);
                     setInput([]);
                 }
             }
@@ -41,26 +45,45 @@ const Game: FC = () => {
         };
     }, [input, currentRow, guesses]);
 
+    const guessWord = (letters: string[]): TileState[] => {
+        const tiles: TileState[] = letters.map((letter: string, idx: number): TileState => {
+            const tileState: TileState = {
+                letter,
+                status: TileStatus.None
+            };
+
+            if (CORRECT_LETTERS.includes(letter)) {
+                if (CORRECT_LETTERS[idx] !== letter) {
+                    tileState.status = TileStatus.Used;
+                } else {
+                    tileState.status = TileStatus.Good;
+                }
+            }
+
+            return tileState;
+        });
+
+        return tiles;
+    }
+
     const renderRows = (currentRow: number) => {
         let rows = [];
 
         for (let i = 0; i < ROW_COUNT; i++) {
-            let rowInput: string[] = [];
+            let rowInput: TileState[] = [];
 
             if (i < guesses.length) {
                 rowInput = guesses[i];
             } else if (i === currentRow) {
-                rowInput = input;
+                rowInput = input.map(letter => {
+                    return {
+                        letter,
+                        status: TileStatus.Blank
+                    } as TileState
+                });
             }
 
-            const tempRowInput = rowInput.map(letter => {
-                return {
-                    letter,
-                    status: TileStatus.Blank
-                } as TileState
-            });
-
-            rows.push(<GameRow key={i} row={tempRowInput} />);
+            rows.push(<GameRow key={i} row={rowInput} />);
         }
 
         return rows;
