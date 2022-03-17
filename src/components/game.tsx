@@ -1,12 +1,21 @@
 import { FC, useEffect, useState } from 'react';
 import { ROW_COUNT, WORD_LENGTH } from '../constants';
-import { TileStatus } from "../components/game-tile";
+import { TileStatus } from '../components/game-tile';
 import { TileState } from '../types/tile-state';
 import GameRow from './game-row';
 
+interface WordHash {
+    [letter: string]: number;
+}
 
-const CORRECT_WORD = 'CRANE';
+const CORRECT_WORD = 'THREE';
 const CORRECT_LETTERS = CORRECT_WORD.split('');
+
+const CORRECT_WORD_HASH = CORRECT_LETTERS.reduce((acc: WordHash, letter: string): WordHash => {
+    acc[letter] ? acc[letter]++ : (acc[letter] = 1);
+
+    return acc;
+}, {} as WordHash);
 
 const isValidWord = (word: string[]): boolean => {
     if (word.length < 5) {
@@ -46,25 +55,35 @@ const Game: FC = () => {
     }, [input, currentRow, guesses]);
 
     const guessWord = (letters: string[]): TileState[] => {
+        const copyWinningHash = { ...CORRECT_WORD_HASH };
+
         const tiles: TileState[] = letters.map((letter: string, idx: number): TileState => {
             const tileState: TileState = {
                 letter,
-                status: TileStatus.None
+                status: TileStatus.None,
             };
 
-            if (CORRECT_LETTERS.includes(letter)) {
-                if (CORRECT_LETTERS[idx] !== letter) {
-                    tileState.status = TileStatus.Used;
-                } else {
-                    tileState.status = TileStatus.Good;
-                }
+            if (CORRECT_LETTERS[idx] === letter) {
+                tileState.status = TileStatus.Good;
+                copyWinningHash[letter]--;
             }
 
             return tileState;
         });
 
+        for (let i = 0; i < letters.length; i++) {
+            if (tiles[i].status === TileStatus.Good) {
+                continue;
+            }
+
+            if (copyWinningHash[letters[i]]) {
+                copyWinningHash[letters[i]]--;
+                tiles[i].status = TileStatus.Used;
+            }
+        }
+
         return tiles;
-    }
+    };
 
     const renderRows = (currentRow: number) => {
         let rows = [];
@@ -75,11 +94,11 @@ const Game: FC = () => {
             if (i < guesses.length) {
                 rowInput = guesses[i];
             } else if (i === currentRow) {
-                rowInput = input.map(letter => {
+                rowInput = input.map((letter) => {
                     return {
                         letter,
-                        status: TileStatus.Blank
-                    } as TileState
+                        status: TileStatus.Blank,
+                    } as TileState;
                 });
             }
 
