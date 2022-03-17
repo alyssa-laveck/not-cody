@@ -13,7 +13,7 @@ const CORRECT_WORD_HASH = CORRECT_LETTERS.reduce(
 
         return acc;
     }, 
-    {} as any
+    {} as { [letter: string]: number }
 );
 
 const isValidWord = (word: string[]): boolean => {
