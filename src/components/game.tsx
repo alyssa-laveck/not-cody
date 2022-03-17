@@ -30,7 +30,7 @@ const Game: FC = () => {
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
                 setInput([...input, key.toUpperCase()]);
             } else if (key === 'Enter' && isValidWord(input)) {
-                if (currentRow < ROW_COUNT - 1) {
+                if (currentRow < ROW_COUNT) {
                     setCurrentRow(currentRow + 1);
                     setGuesses([...guesses, guessWord(input)]);
                     setInput([]);
