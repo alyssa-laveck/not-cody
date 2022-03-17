@@ -8,7 +8,7 @@ const CORRECT_WORD = 'THREE';
 const CORRECT_LETTERS = CORRECT_WORD.split('');
 
 const CORRECT_WORD_HASH = CORRECT_LETTERS.reduce(
-    (acc, letter) => {
+    (acc: { [letter: string]: number }, letter: string) => {
         acc[letter] ? acc[letter]++ : acc[letter] = 1;
 
         return acc;
