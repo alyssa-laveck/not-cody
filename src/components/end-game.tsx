@@ -1,10 +1,13 @@
 import { FC } from 'react';
 
-const EndGame: FC = () => {
-    return (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '16px' }}>
-            Winner Winner, Chicken Dinner!
-        </div>
-    );
+const EndGame: FC<{ isWinner: boolean }> = ({ isWinner }) => {
+    const winningText = 'Winner Winner, Chicken Dinner!';
+    const losingText = 'Loser Loser, Chicken Snoozer!';
+
+    const gameResult = isWinner ? winningText : losingText;
+
+    return <div className="end-game-container">
+        {gameResult}
+    </div>;
 };
 export default EndGame;

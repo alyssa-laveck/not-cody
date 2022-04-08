@@ -40,10 +40,11 @@ const Game: FC = () => {
     const [input, setInput] = useState<string[]>([]);
     const [currentRow, setCurrentRow] = useState<number>(0);
     const [isWinner, setIsWinner] = useState<boolean>(false);
+    const [gameOver, setGameOver] = useState<boolean>(false);
 
     useEffect(() => {
         const keyDown = ({ key, keyCode }: any) => {
-            if (isWinner) {
+            if (isWinner || gameOver) {
                 return;
             }
 
@@ -52,13 +53,14 @@ const Game: FC = () => {
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
                 setInput([...input, key.toUpperCase()]);
             } else if (key === 'Enter' && isValidWord(input)) {
+                setGuesses([...guesses, guessWord(input)]);
+
                 if (isCorrectWord(input)) {
                     setIsWinner(true);
-                }
-
-                if (currentRow < ROW_COUNT) {
+                } else if (currentRow === ROW_COUNT - 1) {
+                    setGameOver(true);
+                } else {
                     setCurrentRow(currentRow + 1);
-                    setGuesses([...guesses, guessWord(input)]);
                     setInput([]);
                 }
             }
@@ -127,7 +129,7 @@ const Game: FC = () => {
 
     return (
         <div>
-            {isWinner && <EndGame />}
+            {(isWinner || gameOver) && <EndGame isWinner={isWinner} />}
             <div className="flex-center column">{renderRows(currentRow)}</div>
         </div>
     );
