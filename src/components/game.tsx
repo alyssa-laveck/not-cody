@@ -3,7 +3,7 @@ import { ROW_COUNT, WORD_LENGTH } from '../constants';
 import { TileStatus } from '../components/game-tile';
 import { TileState } from '../types/tile-state';
 import GameRow from './game-row';
-import WinBanner from './win-banner';
+import EndGame from './end-game';
 
 interface WordHash {
     [letter: string]: number;
@@ -127,7 +127,7 @@ const Game: FC = () => {
 
     return (
         <div>
-            {isWinner && <WinBanner />}
+            {isWinner && <EndGame />}
             <div className="flex-center column">{renderRows(currentRow)}</div>
         </div>
     );
