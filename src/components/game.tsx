@@ -3,6 +3,7 @@ import { ROW_COUNT, WORD_LENGTH } from '../constants';
 import { TileStatus } from '../components/game-tile';
 import { TileState } from '../types/tile-state';
 import GameRow from './game-row';
+import WinBanner from './win-banner';
 
 interface WordHash {
     [letter: string]: number;
@@ -27,10 +28,18 @@ const isValidWord = (word: string[]): boolean => {
     return true;
 };
 
+const isCorrectWord = (word: string[]): boolean => {
+    // check if word is correct
+    return CORRECT_LETTERS.every((letter: string, index: number): boolean => {
+        return letter === word[index];
+    });
+};
+
 const Game: FC = () => {
     const [guesses, setGuesses] = useState<TileState[][]>([]);
     const [input, setInput] = useState<string[]>([]);
     const [currentRow, setCurrentRow] = useState<number>(0);
+    const [isWinner, setIsWinner] = useState<boolean>(false);
 
     useEffect(() => {
         const keyDown = ({ key, keyCode }: any) => {
@@ -39,6 +48,10 @@ const Game: FC = () => {
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
                 setInput([...input, key.toUpperCase()]);
             } else if (key === 'Enter' && isValidWord(input)) {
+                if (isCorrectWord(input)) {
+                    setIsWinner(true);
+                }
+
                 if (currentRow < ROW_COUNT) {
                     setCurrentRow(currentRow + 1);
                     setGuesses([...guesses, guessWord(input)]);
@@ -108,7 +121,12 @@ const Game: FC = () => {
         return rows;
     };
 
-    return <div className="flex-center column">{renderRows(currentRow)}</div>;
+    return (
+        <div>
+            {isWinner && <WinBanner />}
+            <div className="flex-center column">{renderRows(currentRow)}</div>
+        </div>
+    );
 };
 
 export default Game;
