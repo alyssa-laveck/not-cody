@@ -43,6 +43,10 @@ const Game: FC = () => {
 
     useEffect(() => {
         const keyDown = ({ key, keyCode }: any) => {
+            if (isWinner) {
+                return;
+            }
+
             if (key === 'Backspace' && input.length > 0) {
                 setInput(input.slice(0, input.length - 1));
             } else if (keyCode >= 65 && keyCode <= 90 && input.length < WORD_LENGTH) {
