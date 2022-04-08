@@ -4,12 +4,18 @@ import { TileStatus } from '../components/game-tile';
 import { TileState } from '../types/tile-state';
 import GameRow from './game-row';
 import EndGame from './end-game';
+import { VALID_WORD_LIST, ANSWER_LIST } from '../word-lists';
 
 interface WordHash {
     [letter: string]: number;
 }
 
-const CORRECT_WORD = 'THREE';
+const idx = Math.floor(Math.random() * ANSWER_LIST.length);
+const CORRECT_WORD = ANSWER_LIST[idx];
+const GUESSABLE_WORDS = VALID_WORD_LIST.concat(ANSWER_LIST);
+
+//console.log(CORRECT_WORD);
+
 const CORRECT_LETTERS = CORRECT_WORD.split('');
 
 const CORRECT_WORD_HASH = CORRECT_LETTERS.reduce((acc: WordHash, letter: string): WordHash => {
@@ -17,16 +23,6 @@ const CORRECT_WORD_HASH = CORRECT_LETTERS.reduce((acc: WordHash, letter: string)
 
     return acc;
 }, {} as WordHash);
-
-const isValidWord = (word: string[]): boolean => {
-    if (word.length < 5) {
-        return false;
-    }
-
-    // Need something to check if valid english word and add check here
-
-    return true;
-};
 
 const isCorrectWord = (word: string[]): boolean => {
     // check if word is correct
@@ -41,6 +37,7 @@ const Game: FC = () => {
     const [currentRow, setCurrentRow] = useState<number>(0);
     const [isWinner, setIsWinner] = useState<boolean>(false);
     const [gameOver, setGameOver] = useState<boolean>(false);
+    const [invalidWord, setInvalidWord] = useState<boolean>(false);
 
     useEffect(() => {
         const keyDown = ({ key, keyCode }: any) => {
@@ -72,6 +69,20 @@ const Game: FC = () => {
             window.removeEventListener('keydown', keyDown);
         };
     }, [input, currentRow, guesses]);
+
+    const isValidWord = (word: string[]): boolean => {
+        if (word.length < 5) {
+            return false;
+        }
+
+        if (!GUESSABLE_WORDS.includes(word.join(''))) {
+            setInvalidWord(true);
+            return false;
+        }
+
+        setInvalidWord(false);
+        return true;
+    };
 
     const guessWord = (letters: string[]): TileState[] => {
         const copyWinningHash = { ...CORRECT_WORD_HASH };
@@ -129,7 +140,11 @@ const Game: FC = () => {
 
     return (
         <div>
-            {(isWinner || gameOver) && <EndGame isWinner={isWinner} />}
+            <div className="messages">
+                {invalidWord && <div className="container invalid-word">Guessed word is invalid</div>}
+                {(isWinner || gameOver) && <EndGame isWinner={isWinner} correctWord={CORRECT_WORD} />}
+            </div>
+
             <div className="flex-center column">{renderRows(currentRow)}</div>
         </div>
     );

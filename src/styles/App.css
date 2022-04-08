@@ -45,8 +45,16 @@ body {
     border: 2px #ffffff solid;
 }
 
-.end-game-container {
+.messages {
+    min-height: 60px;
+}
+.container {
     display: flex;
     justify-content: center;
     padding: 16px;
 }
+
+.container.invalid-word {
+    color: red;
+}
+
