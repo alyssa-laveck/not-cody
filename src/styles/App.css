@@ -44,3 +44,9 @@ body {
 .game-tile.blank {
     border: 2px #ffffff solid;
 }
+
+.end-game-container {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}
