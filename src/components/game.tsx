@@ -68,7 +68,7 @@ const Game: FC = () => {
         return () => {
             window.removeEventListener('keydown', keyDown);
         };
-    }, [input, currentRow, guesses]);
+    }, [input, currentRow, guesses, isWinner, gameOver]);
 
     const isValidWord = (word: string[]): boolean => {
         if (word.length < 5) {
